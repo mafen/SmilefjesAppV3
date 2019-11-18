@@ -1,0 +1,78 @@
+package com.usn.smilefjes.ui.tilsyn;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.usn.smilefjes.data.entities.Tilsyn;
+import com.usn.smilefjes.databinding.TilsynItemBinding;
+
+import java.util.ArrayList;
+
+
+public class TilsynAdapterLAter extends ListAdapter<Tilsyn, TilsynAdapterLAter.TilsynViewHolder> {
+    private ArrayList<Tilsyn> tilsynListen;
+    private LayoutInflater minInflater;
+    private Context ctx;
+
+    TilsynItemBinding tilsynItemBinding;
+
+
+    public TilsynAdapterLAter() {
+        super(DIFF_CALLBACK);
+
+    }
+
+    @NonNull
+    @Override
+    public TilsynViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull TilsynViewHolder holder, int position) {
+
+    }
+
+    private static final DiffUtil.ItemCallback<Tilsyn> DIFF_CALLBACK = new DiffUtil.ItemCallback<Tilsyn>() {
+
+
+        @Override
+        public boolean areItemsTheSame(@NonNull Tilsyn oldItem, @NonNull Tilsyn newItem) {
+            return oldItem.getNavn().equals(newItem.getNavn());
+
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Tilsyn oldItem, @NonNull Tilsyn newItem) {
+            return (oldItem.getNavn().equals(newItem.getNavn())
+                    && oldItem.getAdresse().equals(newItem.getAdresse())
+                    && oldItem.getOrgNr().equals(newItem.getOrgNr()));
+        };
+
+
+
+    };
+
+
+
+    class TilsynViewHolder extends RecyclerView.ViewHolder {
+        final TilsynAdapterLAter mittAdapter;
+
+        public TilsynViewHolder(View itemView, TilsynAdapterLAter adapter) {
+            super(itemView);
+
+            this.mittAdapter = adapter;
+        }
+
+        }
+    }
+
+
+

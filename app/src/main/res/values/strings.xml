@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Smilefjes</string>
+    <string name="tittel_tilsyn">Tilsyn</string>
+    <string name="standard_adresse">Adresse</string>
+    <string name="placeholder">N/A</string>
+
+</resources>

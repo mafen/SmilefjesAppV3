@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="oval"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="#E91E65"/>
+    <size android:width="100dp" android:height="100dp"/>
+</shape>
+
+
+<!--
+    https://inducesmile.com/android-programming/how-to-create-circle-or-rounded-button-in-android/https://inducesmile.com/android-programming/how-to-create-circle-or-rounded-button-in-android/-->
