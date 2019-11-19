@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface SmilefjesApi {
-    @GET("tilsyn?dato=02082019")
+    @GET("tilsyn?")
     Call<Profiles> readProfiles();
 
     @GET("tilsyn?{username}")
