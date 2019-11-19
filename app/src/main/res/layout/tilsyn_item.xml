@@ -12,86 +12,128 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:measureAllChildren="true"
+        android:textAlignment="center"
+        app:cardCornerRadius="4dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/contraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp">
+            android:layout_height="81dp"
+            android:padding="4dp"
+            tools:layout_editor_absoluteY="1dp">
 
             <TextView
                 android:id="@+id/text_view_navn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="2dp"
+                android:layout_width="332dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="5dp"
+                android:maxLines="2"
                 android:text="@{Tilsyn.navn, default=@string/placeholder}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:layout_constraintBottom_toTopOf="@+id/text_view_adresse"
+                app:layout_constraintEnd_toStartOf="@+id/text_view_karakter"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.73" />
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/text_view_karakter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="34dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{String.valueOf(Tilsyn.totalKarakter ), default=@string/placeholder }"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
 
             <TextView
                 android:id="@+id/text_view_orgNr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
+                android:layout_width="96dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="258dp"
+                android:layout_marginBottom="2dp"
                 android:ellipsize="end"
+                android:gravity="top"
                 android:maxLines="1"
-                android:text="@{String.valueOf(Tilsyn.orgNr ), default=@string/placeholder }"
+                android:text="@{String.valueOf(Tilsyn.orgnummer ), default=@string/placeholder }"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 app:layout_constraintBottom_toTopOf="@+id/text_view_navn"
+                app:layout_constraintEnd_toStartOf="@+id/text_view_karakter"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/text_view_adresse"
-                android:layout_width="wrap_content"
+                android:layout_width="126dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_view_navn"
-                android:layout_marginTop="52dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="60dp"
+                android:breakStrategy="high_quality"
                 android:clickable="false"
+                android:maxLines="2"
                 android:text="@{Tilsyn.adresse, default=@string/standard_adresse}"
+                app:autoSizeMaxTextSize="20dp"
+                app:autoSizeMinTextSize="8sp"
+                app:autoSizeStepGranularity="4sp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/text_view_postnr"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/text_view_poststed"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="248dp"
-                android:layout_marginTop="52dp"
-                android:text="@{Tilsyn.postSted, default=@string/placeholder}"
+                android:layout_marginStart="240dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{Tilsyn.poststed, default=@string/placeholder}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/text_view_postnr"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_view_navn"
                 android:layout_alignParentStart="false"
-                android:layout_marginStart="168dp"
-                android:layout_marginTop="52dp"
-                android:text="@{String.valueOf(Tilsyn.postNr) , default=@string/placeholder}"
+                android:layout_marginStart="200dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="2dp"
+                android:text="@{String.valueOf(Tilsyn.postnr) , default=@string/placeholder}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/text_view_poststed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/text_view_navn"
+                app:layout_constraintVertical_bias="1.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,4 +1,4 @@
-/*
+
 package com.usn.smilefjes.data.smilefjesApi;
 
 import com.usn.smilefjes.data.entities.Tilsyn;
@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface SmilefjesApi {
-    @GET("?")
+    @GET("tilsyn?dato=02082019")
     Call<Profiles> readProfiles();
 
     @GET("tilsyn?{username}")
@@ -18,4 +18,4 @@ public interface SmilefjesApi {
 
 
 }
-*/
+

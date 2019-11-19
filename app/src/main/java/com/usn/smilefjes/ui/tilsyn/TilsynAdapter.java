@@ -1,6 +1,7 @@
 package com.usn.smilefjes.ui.tilsyn;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,11 @@ public class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynView
 
     }
 
+    public void setTilsynListe(List<Tilsyn> tilsynListe) {
+        this.tilsynListe = tilsynListe;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public TilsynViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -53,7 +59,7 @@ public class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynView
     }
 
 
-    class TilsynViewHolder extends RecyclerView.ViewHolder {
+    class TilsynViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
 
         private TilsynItemBinding binding;
 
@@ -61,16 +67,27 @@ public class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynView
         public TilsynViewHolder(TilsynItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            itemView.setOnClickListener(this);
 
         }
+
+
 
         public void bind(Tilsyn tilsyn){
             binding.setTilsyn(tilsyn);
             binding.executePendingBindings();
+
         }
 
 
+        @Override
+        public void onClick(View v) {
+            String orgNr = binding.textViewOrgNr.getText().toString();
+            tilsynListe.remove(binding.getTilsyn());
+            notifyDataSetChanged();
+            Log.d("orgnr", "onClick: " + binding.getTilsyn().getNavn());
         }
+    }
 
 
     }

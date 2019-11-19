@@ -1,4 +1,4 @@
-/*
+
 package com.usn.smilefjes.data.entities;
 
 import com.google.gson.annotations.SerializedName;
@@ -17,4 +17,4 @@ public class Profiles {
         this.profiles = profiles;
     }
 }
-*/
+

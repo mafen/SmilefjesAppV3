@@ -1,4 +1,4 @@
-/*
+
 package com.usn.smilefjes.data.repository;
 
 import android.app.Application;
@@ -24,10 +24,9 @@ public class TilsynRepository {
     public TilsynRepository(Application application) {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://hotell.difi.no/api/json/mattilsynet/smilefjes/tilsyn/")
+                .baseUrl("https://hotell.difi.no/api/json/mattilsynet/smilefjes/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
 
 
         smilefjesApi = retrofit.create(SmilefjesApi.class);
@@ -56,4 +55,4 @@ public class TilsynRepository {
 
 
 }
-*/
+

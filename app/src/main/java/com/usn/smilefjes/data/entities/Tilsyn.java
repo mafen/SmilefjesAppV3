@@ -4,28 +4,38 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
+import com.google.gson.annotations.SerializedName;
+
 
 public class Tilsyn extends BaseObservable {
 
-    private int orgNr;
+    private int orgnummer;
     private String navn;
+
+    @SerializedName("adrlinje1")
     private String adresse;
-    private int postNr;
-    private String postSted;
+
+
+    private int postnr;
+    private String poststed;
+
+    @SerializedName("total_karakter")
     private double totalKarakter;
 
-    public Tilsyn(String navn, int orgNr) {
+    public Tilsyn(String navn, int orgnummer) {
         this.navn = navn;
-        this.orgNr = orgNr;
+        this.orgnummer = orgnummer;
 
     }
+    @Bindable
 
-    public int getOrgNr() {
-        return orgNr;
+    public int getOrgnummer() {
+        return orgnummer;
     }
 
-    public void setOrgNr(int orgNr) {
-        this.orgNr = orgNr;
+    public void setOrgnummer(int orgnummer) {
+        notifyPropertyChanged(BR.orgnummer);
+        this.orgnummer = orgnummer;
     }
 
     @Bindable
@@ -33,36 +43,43 @@ public class Tilsyn extends BaseObservable {
         return navn;
     }
 
+
     public void setNavn(String navn) {
         notifyPropertyChanged(BR.navn);
         this.navn = navn;
     }
 
+    @Bindable
     public String getAdresse() {
         return adresse;
     }
 
     public void setAdresse(String adresse) {
+        notifyPropertyChanged(BR.adresse);
         this.adresse = adresse;
     }
 
 
-    public int getPostNr() {
-        return postNr;
+    @Bindable
+    public int getPostnr() {
+        return postnr;
     }
 
-    public void setPostNr(int postNr) {
-        this.postNr = postNr;
+    public void setPostnr(int postnr) {
+        notifyPropertyChanged(BR.postnr);
+        this.postnr = postnr;
     }
 
-    public String getPostSted() {
-        return postSted;
+    @Bindable
+    public String getPoststed() {
+        return poststed;
     }
 
-    public void setPostSted(String postSted) {
-        this.postSted = postSted;
+    public void setPoststed(String poststed) {
+        this.poststed = poststed;
     }
 
+    @Bindable
     public double getTotalKarakter() {
         return totalKarakter;
     }
