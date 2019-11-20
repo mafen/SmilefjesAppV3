@@ -49,8 +49,7 @@ public class Tilsyn extends BaseObservable {
             imageSrc = R.drawable.ic_neutral_24dp;
             else
             imageSrc =R.drawable.ic_dissatisfied_24dp;
-
-        notifyPropertyChanged(BR.imageSrc);
+            
         return imageSrc;
     }
 
