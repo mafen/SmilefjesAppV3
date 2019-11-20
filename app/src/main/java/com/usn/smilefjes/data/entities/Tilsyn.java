@@ -1,34 +1,60 @@
 package com.usn.smilefjes.data.entities;
 
+import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
+
+import androidx.core.widget.ImageViewCompat;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.DataBindingUtil;
 import androidx.databinding.library.baseAdapters.BR;
 
 import com.google.gson.annotations.SerializedName;
+import com.usn.smilefjes.R;
 
 
 public class Tilsyn extends BaseObservable {
 
     private int orgnummer;
+
+
+
+    private String tilsynid;
+
     private String navn;
+
+    private int imageSrc;
 
     @SerializedName("adrlinje1")
     private String adresse;
-
 
     private int postnr;
     private String poststed;
 
     @SerializedName("total_karakter")
-    private double totalKarakter;
+    private int totalKarakter;
 
     public Tilsyn(String navn, int orgnummer) {
         this.navn = navn;
         this.orgnummer = orgnummer;
 
     }
-    @Bindable
 
+    @Bindable
+    public int getImageSrc() {
+        if (totalKarakter <= 1 )
+            imageSrc = R.drawable.ic_satisfied_24dp;
+        else if (totalKarakter == 2)
+            imageSrc = R.drawable.ic_neutral_24dp;
+            else
+            imageSrc =R.drawable.ic_dissatisfied_24dp;
+
+        notifyPropertyChanged(BR.imageSrc);
+        return imageSrc;
+    }
+
+    @Bindable
     public int getOrgnummer() {
         return orgnummer;
     }
@@ -36,6 +62,10 @@ public class Tilsyn extends BaseObservable {
     public void setOrgnummer(int orgnummer) {
         notifyPropertyChanged(BR.orgnummer);
         this.orgnummer = orgnummer;
+    }
+
+    public String getTilsynid() {
+        return tilsynid;
     }
 
     @Bindable
@@ -80,17 +110,22 @@ public class Tilsyn extends BaseObservable {
     }
 
     @Bindable
-    public double getTotalKarakter() {
+    public int getTotalKarakter() {
         return totalKarakter;
     }
 
-    public void setTotalKarakter(double totalKarakter) {
+    public void setTotalKarakter(int totalKarakter) {
         this.totalKarakter = totalKarakter;
     }
 
 
 
+    }
 
 
-}
+
+
+
+
+
 

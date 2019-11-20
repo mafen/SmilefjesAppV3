@@ -64,13 +64,13 @@ public class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynView
         private TilsynItemBinding binding;
 
 
+
         public TilsynViewHolder(TilsynItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
             itemView.setOnClickListener(this);
 
         }
-
 
 
         public void bind(Tilsyn tilsyn){
@@ -83,9 +83,10 @@ public class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynView
         @Override
         public void onClick(View v) {
             String orgNr = binding.textViewOrgNr.getText().toString();
+            Log.d("Tilsynid", "onClick: " + binding.getTilsyn().getTilsynid());
             tilsynListe.remove(binding.getTilsyn());
             notifyDataSetChanged();
-            Log.d("orgnr", "onClick: " + binding.getTilsyn().getNavn());
+            Log.d("Navn", "onClick: " + binding.getTilsyn().getNavn());
         }
     }
 

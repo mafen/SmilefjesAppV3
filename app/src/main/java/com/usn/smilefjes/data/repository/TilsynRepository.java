@@ -5,8 +5,8 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.usn.smilefjes.data.entities.AlleTilsyn;
 import com.usn.smilefjes.data.entities.Tilsyn;
-import com.usn.smilefjes.data.entities.Profiles;
 import com.usn.smilefjes.data.smilefjesApi.SmilefjesApi;
 
 
@@ -35,13 +35,13 @@ public class TilsynRepository {
     }
 
 
-    public void readOnlineProfile(String username, Callback<Tilsyn> callback) {
-        Call<Tilsyn> call = smilefjesApi.readProfile(username);
+    public void lesEtTilsyn(String id, Callback<Tilsyn> callback) {
+        Call<Tilsyn> call = smilefjesApi.readProfile(id);
         call.enqueue(callback);
     }
 
-    public void readOnlineProfiles(Callback<Profiles> callback) {
-        Call<Profiles> call = smilefjesApi.readProfiles();
+    public void lesFlereTilsyn(Callback<AlleTilsyn> callback) {
+        Call<AlleTilsyn> call = smilefjesApi.readProfiles();
         call.enqueue(callback);
     }
 

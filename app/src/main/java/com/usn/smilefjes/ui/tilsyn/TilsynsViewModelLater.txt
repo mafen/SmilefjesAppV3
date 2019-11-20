@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.usn.smilefjes.data.entities.Profiles;
+import com.usn.smilefjes.data.entities.AlleTilsyn;
 import com.usn.smilefjes.data.entities.Tilsyn;
 import com.usn.smilefjes.data.repository.TilsynRepository;
 

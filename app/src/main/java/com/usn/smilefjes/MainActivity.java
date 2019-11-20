@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+
+
     /*    // AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigasjon_tilsyn)
                 .build();*/

@@ -9,8 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.LiveData;
 
 
-
-import com.usn.smilefjes.data.entities.Profiles;
+import com.usn.smilefjes.data.entities.AlleTilsyn;
 import com.usn.smilefjes.data.entities.Tilsyn;
 import com.usn.smilefjes.data.repository.TilsynRepository;
 
@@ -34,22 +33,23 @@ public class TilsynsViewModel extends AndroidViewModel {
 
         tilsynRepository = new TilsynRepository(application);
 
-        tilsynRepository.readOnlineProfiles(new Callback<Profiles>() {
+        tilsynRepository.lesFlereTilsyn(new Callback<AlleTilsyn>() {
             @Override
-            public void onResponse(Call<Profiles> call, Response<Profiles> response) {
-                List<Tilsyn> body = response.body().getProfiles();
+            public void onResponse(Call<AlleTilsyn> call, Response<AlleTilsyn> response) {
+                List<Tilsyn> body = response.body().getTilsynList();
 
                 tilsynListe.setValue(body);
             }
 
             @Override
-            public void onFailure(Call<Profiles> call, Throwable t) {
+            public void onFailure(Call<AlleTilsyn> call, Throwable t) {
                 tilsynListe.setValue(new ArrayList<Tilsyn>());
                 Log.e("API", "onFailure: failed to read tilsyn", t);
             }
         });
 
     }
+
 
     public LiveData<List<Tilsyn>> getTilsynListe() {
         return tilsynListe;

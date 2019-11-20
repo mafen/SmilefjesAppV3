@@ -67,8 +67,10 @@ public class TilsynsFragment extends Fragment {
 
         final TilsynAdapter tilsynAdapter = new TilsynAdapter(tilsynsListe);
         recyclerView.setAdapter(tilsynAdapter);
+        recyclerView.setHasFixedSize(true);
 
         tilsynsViewModel = new ViewModelProvider(this).get(TilsynsViewModel.class);
+
 
         tilsynsViewModel.getTilsynListe().observe(this, new Observer<List<Tilsyn>>() {
             @Override
@@ -78,7 +80,7 @@ public class TilsynsFragment extends Fragment {
             }
 
         });
-        recyclerView.setHasFixedSize(true);
+
 
         return root;
     }
