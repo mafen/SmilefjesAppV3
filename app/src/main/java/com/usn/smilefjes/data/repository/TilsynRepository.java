@@ -35,13 +35,13 @@ public class TilsynRepository {
     }
 
 
-    public void lesEtTilsyn(String id, Callback<Tilsyn> callback) {
-        Call<Tilsyn> call = smilefjesApi.readProfile(id);
+    public void lesEtTilsyn(String id, Callback<AlleTilsyn> callback) {
+        Call<AlleTilsyn> call = smilefjesApi.lesEtTilsyn(id);
         call.enqueue(callback);
     }
 
     public void lesFlereTilsyn(Callback<AlleTilsyn> callback) {
-        Call<AlleTilsyn> call = smilefjesApi.readProfiles();
+        Call<AlleTilsyn> call = smilefjesApi.lesAlle();
         call.enqueue(callback);
     }
 

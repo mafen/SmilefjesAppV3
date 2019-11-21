@@ -13,15 +13,17 @@ import androidx.databinding.library.baseAdapters.BR;
 import com.google.gson.annotations.SerializedName;
 import com.usn.smilefjes.R;
 
+import java.io.Serializable;
 
-public class Tilsyn extends BaseObservable {
+public class Tilsyn extends BaseObservable implements Serializable {
 
+    @SerializedName("orgnummer")
     private int orgnummer;
 
-
-
+    @SerializedName("tilsynid")
     private String tilsynid;
 
+    @SerializedName("navn")
     private String navn;
 
     private int imageSrc;
@@ -29,7 +31,10 @@ public class Tilsyn extends BaseObservable {
     @SerializedName("adrlinje1")
     private String adresse;
 
+    @SerializedName("postnr")
     private int postnr;
+
+    @SerializedName("poststed")
     private String poststed;
 
     @SerializedName("total_karakter")
