@@ -15,7 +15,7 @@ import com.usn.smilefjes.R;
 
 import java.io.Serializable;
 
-public class Tilsyn extends BaseObservable implements Serializable {
+public class Tilsyn extends BaseObservable {
 
     @SerializedName("orgnummer")
     private int orgnummer;
@@ -37,12 +37,20 @@ public class Tilsyn extends BaseObservable implements Serializable {
     @SerializedName("poststed")
     private String poststed;
 
+    @SerializedName("dato")
+    private String dato;
+
     @SerializedName("total_karakter")
     private int totalKarakter;
 
-    public Tilsyn(String navn, int orgnummer) {
+    public Tilsyn(String navn) {
         this.navn = navn;
-        this.orgnummer = orgnummer;
+
+    }
+
+    public Tilsyn(String navn, int totalKarakter) {
+        this.navn = navn;
+        this.totalKarakter = totalKarakter;
 
     }
 
@@ -56,6 +64,11 @@ public class Tilsyn extends BaseObservable implements Serializable {
             imageSrc =R.drawable.ic_dissatisfied_24dp;
             
         return imageSrc;
+    }
+
+    @Bindable
+    public String getDato() {
+        return dato;
     }
 
     @Bindable
@@ -124,7 +137,7 @@ public class Tilsyn extends BaseObservable implements Serializable {
 
 
 
-    }
+}
 
 
 

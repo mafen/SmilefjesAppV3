@@ -1,7 +1,15 @@
 
 package com.usn.smilefjes.ui.tilsyn;
 
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,28 +21,37 @@ import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.usn.smilefjes.BR;
+import com.usn.smilefjes.MainActivity;
 import com.usn.smilefjes.R;
+import com.usn.smilefjes.TilsynActivity;
 import com.usn.smilefjes.data.entities.Tilsyn;
 import com.usn.smilefjes.databinding.*;
 
+import java.nio.file.DirectoryStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 
 public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynLytter {
 
    final List<Tilsyn> tilsynsListe = new ArrayList<>();
-    List<Tilsyn> full = new ArrayList<>();
+   final List<Tilsyn> full = new ArrayList<>();
+
 
 
     TilsynAdapter tilsynAdapter = new TilsynAdapter(tilsynsListe, this, full);
@@ -76,10 +93,7 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
 
 
 
-    }
 
-    public TilsynAdapter getTilsynAdapter() {
-        return tilsynAdapter;
     }
 
     @Override
@@ -91,12 +105,14 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
     public void onDestroy() {
         super.onDestroy();
 
+
         Log.d("Frag", "I was killed");
 
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
 
         bindingTilsyn = FragmentTilsynBinding.inflate(inflater, container, false);
 
@@ -134,15 +150,17 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
         return root;
     }
 
+    /**
+     * @param menu
+     * @param menuInflater
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.main_menu, menu);
 
         MenuItem searchItem = menu.findItem(R.id.app_bar_search);
 
-
-
         SearchView searchView = (SearchView) searchItem.getActionView();
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -157,11 +175,8 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
             }
         });
 
-
-
-
     }
-
+/*
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -175,7 +190,8 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
 
         return super.onOptionsItemSelected(item);
 
-    }
+    }*/
+
 
 
 
@@ -183,15 +199,16 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
     @Override
     public void onTilsynClick(int pos) {
 
-        tilsynsViewModel.getTilsyn(tilsynsListe.get(pos).getTilsynid()).observe(this, new Observer<Tilsyn>() {
-            @Override
-            public void onChanged(Tilsyn tilsyn) {
-                Log.d("Id", tilsyn.getNavn());
+        Intent intent = new Intent(getContext(), TilsynActivity.class);
+        if (tilsynsListe.get(pos).getTilsynid() != null) {
+            intent.putExtra("test", tilsynsListe.get(pos).getTilsynid());
 
-            }
+            bindingTilsyn.unbind();
+            startActivity(intent);
+        }
 
-        });
-        tilsynsViewModel.getTilsyn(tilsynsListe.get(pos).getTilsynid()).removeObservers(this);
+
+
     }
 
 

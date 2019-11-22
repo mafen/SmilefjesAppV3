@@ -4,5 +4,8 @@
     <string name="standard_adresse">Adresse</string>
     <string name="placeholder">N/A</string>
     <string name="orgNr">"Orgnr : "</string>
-
+    <string name="sok">Søk</string>
+    <string name="innstillinger">Innstillinger</string>
+    <string name="lukk_vindu">Lukk</string>
+    <string name="dato">"Dato : "</string>
 </resources>

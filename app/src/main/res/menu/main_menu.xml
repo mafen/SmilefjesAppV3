@@ -5,13 +5,15 @@
     <item
         android:id="@+id/app_bar_search"
         android:icon="@drawable/ic_search_black_24dp"
-        android:title="Søk"
+        android:title="@string/sok"
         app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView" />
+        app:showAsAction="ifRoom"
+
+        />
 
     <item
         android:id="@+id/open_settings"
-        android:title="Settings"
+        android:title="@string/innstillinger"
         android:icon="@drawable/ic_settings"
         app:showAsAction="ifRoom|collapseActionView" />
 </menu>

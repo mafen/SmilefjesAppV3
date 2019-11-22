@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.usn.smilefjes.data.entities.Tilsyn;
 import com.usn.smilefjes.databinding.TilsynItemBinding;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +21,6 @@ public class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynView
     TilsynItemBinding tilsynItemBinding;
     private List<Tilsyn> tilsynListe;
     List<Tilsyn> fullTilsynsliste;
-    List<Tilsyn> lsynsliste;
-
 
     private OnTilsynLytter onTilsynLytter;
 
@@ -29,41 +28,44 @@ public class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynView
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
 
-            //Log.d(TAG, "performFiltering: " + constraint.toString());
-            List<Tilsyn> filtertListe = new ArrayList<>();
+            final List<Tilsyn> filtertListe = new ArrayList<>();
 
             if (constraint == null || constraint.length() == 0) {
-                for (Tilsyn tilsyn : fullTilsynsliste) {
-
-                    filtertListe.add(tilsyn);
-                }
+                filtertListe.addAll(fullTilsynsliste);
             } else {
                 String filterMoenster = constraint.toString().toLowerCase().trim();
                 for (Tilsyn tilsyn : fullTilsynsliste) {
-                    if (tilsyn.getNavn().toLowerCase().contains(filterMoenster)) {
-
+                    if (tilsyn.getNavn().toLowerCase().contains(filterMoenster) || tilsyn.getPoststed().toLowerCase().contains(filterMoenster)) {
                         filtertListe.add(tilsyn);
-                        notifyDataSetChanged();
                     }
                 }
 
             }
             FilterResults reslutater = new FilterResults();
+
             reslutater.values = filtertListe;
 
             return reslutater;
         }
 
+        //https://stackoverflow.com/questions/14642985/type-safety-unchecked-cast-from-object-to-listmyobject
+
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
 
+            tilsynListe.clear();
             if (results.values != null) {
-                tilsynListe.clear();
-                tilsynListe.addAll((List) results.values);
+                List<?> result = (List<?>) results.values;
+                for (Object object : result) {
+                    if (object instanceof Tilsyn) {
+                        tilsynListe.add((Tilsyn) object); // <-- add to temp
+                    }
+                }
                 notifyDataSetChanged();
 
+
             }
-            
+
         }
     };
 
@@ -72,10 +74,7 @@ public class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynView
         this.fullTilsynsliste = fullTilsynsliste;
 
 
-        for (Tilsyn tilsyn : tilsynList) {
-
-            fullTilsynsliste.add(tilsyn);
-        }
+        fullTilsynsliste.addAll(tilsynList);
 
         this.onTilsynLytter = onTilsynLytter;
 
@@ -83,7 +82,6 @@ public class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynView
 
 
     public void setTilsynListe(List<Tilsyn> tilsynListe) {
-
 
         this.tilsynListe = tilsynListe;
         notifyDataSetChanged();

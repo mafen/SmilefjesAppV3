@@ -15,7 +15,10 @@ import com.usn.smilefjes.data.entities.Tilsyn;
 import com.usn.smilefjes.data.repository.TilsynRepository;
 
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,17 +32,19 @@ public class TilsynsViewModel extends AndroidViewModel {
     Tilsyn tilsynN;
     public MutableLiveData<Tilsyn> tilsyn = new MutableLiveData<>() ;
 
-    private MutableLiveData<List<Tilsyn>> tilsynListe = new MutableLiveData<List<Tilsyn>>();
+    private MutableLiveData<List<Tilsyn>> tilsynListe = new MutableLiveData<>();
 
 
     public TilsynsViewModel(@NonNull Application application) {
         super(application);
 
+
         tilsynRepository = new TilsynRepository(application);
 
         tilsynRepository.lesFlereTilsyn(new Callback<AlleTilsyn>() {
             @Override
-            public void onResponse(Call<AlleTilsyn> call, Response<AlleTilsyn> response) {
+            public void onResponse(Call<AlleTilsyn> call, @NotNull Response<AlleTilsyn> response) {
+                assert response.body() != null;
                 List<Tilsyn> body = response.body().getTilsynList();
 
                 tilsynListe.setValue(body);
@@ -47,7 +52,7 @@ public class TilsynsViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<AlleTilsyn> call, Throwable t) {
-                tilsynListe.setValue(new ArrayList<Tilsyn>());
+                tilsynListe.setValue(new ArrayList<Tilsyn>(Collections.singleton(new Tilsyn("Ingen data funnet", 3))));
                 Log.e("API", "onFailure: failed to read tilsyn", t);
             }
         });
