@@ -66,9 +66,13 @@ public class TilsynActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        Kravpunkt kravpunkt = new Kravpunkt("HI");
+        Kravpunkt kravpunkt = new Kravpunkt("Ansvaret til driftsansvarlige");
 
         kravListe.add(kravpunkt);
+        kravListe.add(new Kravpunkt("Opplæring og kompetanse"));
+        kravListe.add(new Kravpunkt("Internkontroll"));
+        kravListe.add(new Kravpunkt("Håndvask"));
+
 
 
 
