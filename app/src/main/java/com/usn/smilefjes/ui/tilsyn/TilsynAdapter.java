@@ -9,11 +9,14 @@ import android.widget.Filterable;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.usn.smilefjes.TilsynActivity;
+import com.usn.smilefjes.data.entities.Kravpunkt;
 import com.usn.smilefjes.data.entities.Tilsyn;
 import com.usn.smilefjes.databinding.TilsynItemBinding;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -32,6 +35,7 @@ public class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynView
 
             if (constraint == null || constraint.length() == 0) {
                 filtertListe.addAll(fullTilsynsliste);
+
             } else {
                 String filterMoenster = constraint.toString().toLowerCase().trim();
                 for (Tilsyn tilsyn : fullTilsynsliste) {
@@ -61,6 +65,10 @@ public class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynView
                         tilsynListe.add((Tilsyn) object); // <-- add to temp
                     }
                 }
+
+                Collections.sort(tilsynListe);
+                Collections.reverse(tilsynListe);
+
                 notifyDataSetChanged();
 
 
@@ -73,12 +81,12 @@ public class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynView
         this.tilsynListe = tilsynList;
         this.fullTilsynsliste = fullTilsynsliste;
 
-
         fullTilsynsliste.addAll(tilsynList);
 
         this.onTilsynLytter = onTilsynLytter;
 
     }
+
 
 
     public void setTilsynListe(List<Tilsyn> tilsynListe) {

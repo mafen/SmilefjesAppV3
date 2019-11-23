@@ -4,9 +4,11 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.BaseObservable;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 
 import com.google.gson.annotations.SerializedName;
@@ -26,20 +28,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class TilsynsViewModel extends AndroidViewModel {
+public class TilsynsViewModel extends ViewModel {
 
-    private TilsynRepository tilsynRepository;
+    public TilsynRepository tilsynRepository;
     Tilsyn tilsynN;
     public MutableLiveData<Tilsyn> tilsyn = new MutableLiveData<>() ;
 
     private MutableLiveData<List<Tilsyn>> tilsynListe = new MutableLiveData<>();
 
 
-    public TilsynsViewModel(@NonNull Application application) {
-        super(application);
+    public TilsynsViewModel() {
 
-
-        tilsynRepository = new TilsynRepository(application);
+        tilsynRepository = new TilsynRepository();
 
         tilsynRepository.lesFlereTilsyn(new Callback<AlleTilsyn>() {
             @Override
@@ -57,6 +57,14 @@ public class TilsynsViewModel extends AndroidViewModel {
             }
         });
 
+
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+
+        Log.d("Hi", "Cleared");
 
     }
 

@@ -21,9 +21,7 @@ public class TilsynRepository {
 
     SmilefjesApi smilefjesApi;
 
-    private LiveData<Tilsyn> tilsynLiveData;
-
-    public TilsynRepository(Application application) {
+    public TilsynRepository() {
 
 
 
@@ -32,7 +30,6 @@ public class TilsynRepository {
         builder.addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder
                 .build();
-
 
 
         smilefjesApi = retrofit.create(SmilefjesApi.class);

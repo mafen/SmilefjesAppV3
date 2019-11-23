@@ -1,33 +1,44 @@
 package com.usn.smilefjes;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleService;
+import androidx.lifecycle.Lifecycling;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.usn.smilefjes.data.entities.Kravpunkt;
 import com.usn.smilefjes.data.entities.Tilsyn;
 import com.usn.smilefjes.databinding.ActivityTilsynBinding;
-import com.usn.smilefjes.ui.tilsyn.TilsynsFragment;
+import com.usn.smilefjes.ui.tilsyn.KravAdapter;
 import com.usn.smilefjes.ui.tilsyn.TilsynsViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TilsynActivity extends AppCompatActivity {
 
     private ActivityTilsynBinding binding;
 
     private TilsynsViewModel tilsynsViewModel;
+
+    final List<Kravpunkt> kravListe = new ArrayList<>();
+
+    RecyclerView recyclerView;
+
+    KravAdapter kravAdapter = new KravAdapter(kravListe);
 
     String test2;
 
@@ -36,35 +47,62 @@ public class TilsynActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //setContentView(R.layout.activity_tilsyn);
-
-
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_tilsyn);
+        binding.executePendingBindings();
 
-        binding.setLifecycleOwner(this);
 
         Intent intent = getIntent();
 
-        tilsynsViewModel = new ViewModelProvider(this).get(TilsynsViewModel.class);
 
-        test2 = intent.getStringExtra("test");
+        //tilsynsViewModel = new ViewModelProvider(this).get(TilsynsViewModel.class);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
 
-        if(test2.length() != 0){
+        //Deklarasjon av recyclerview og dens adapter
+
+        recyclerView = binding.recyclerViewKrav;
+        recyclerView.setLayoutManager(layoutManager);
+
+
+        Kravpunkt kravpunkt = new Kravpunkt("HI");
+
+        kravListe.add(kravpunkt);
+
+
+
+        recyclerView.setAdapter(kravAdapter);
+        recyclerView.setHasFixedSize(true);
+
+        binding.setTilsyn((Tilsyn)intent.getSerializableExtra("test"));
+
+
+
+/*
+        tilsynsViewModel.getTilsynListe().observe(this, new Observer<List<Tilsyn>>() {
+            @Override
+            public void onChanged(List<Tilsyn> tilsynsListeNett) {
+                tilsynsListe.addAll(tilsynsListeNett);
+                full.addAll(tilsynsListeNett);
+                Collections.sort(tilsynsListe);
+                Collections.reverse(tilsynsListe);
+
+                tilsynAdapter.setTilsynListe(tilsynsListe);
+
+            }
+
+        });*/
+
+
+     /*   if(test2.length() != 0){
             tilsynsViewModel.getTilsyn(test2).observe(this, new Observer<Tilsyn>() {
                 @Override
                 public void onChanged(Tilsyn tilsyn) {
-                    binding.setTilsyn(tilsyn);
                 }
 
             });
-        }
-
-
-
-
-        Log.d("HI", test2);
+        }*/
 
     }
 
@@ -79,12 +117,14 @@ public class TilsynActivity extends AppCompatActivity {
 
         if(item.getItemId() == R.id.close){
             finish();
-            tilsynsViewModel.getTilsyn(test2).removeObservers(this);
+            //binding.unbind();
+            //recyclerView.invalidate();
+            //tilsynsViewModel.getTilsyn(test2).removeObservers(this);
         }
-
 
 
         return  true;
     }
 
-    }
+
+}

@@ -2,14 +2,8 @@
 package com.usn.smilefjes.ui.tilsyn;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,37 +15,33 @@ import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.GenericLifecycleObserver;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
+import androidx.lifecycle.ViewModelStore;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.usn.smilefjes.BR;
-import com.usn.smilefjes.MainActivity;
 import com.usn.smilefjes.R;
 import com.usn.smilefjes.TilsynActivity;
 import com.usn.smilefjes.data.entities.Tilsyn;
-import com.usn.smilefjes.databinding.*;
+import com.usn.smilefjes.databinding.FragmentTilsynBinding;
 
-import java.nio.file.DirectoryStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
-
-import static androidx.core.content.ContextCompat.getSystemService;
 
 
 public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynLytter {
 
    final List<Tilsyn> tilsynsListe = new ArrayList<>();
    final List<Tilsyn> full = new ArrayList<>();
-
 
 
     TilsynAdapter tilsynAdapter = new TilsynAdapter(tilsynsListe, this, full);
@@ -92,21 +82,45 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
         setHasOptionsMenu(true);
 
 
-
-
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
 
+        FragmentActivity activity = this.getActivity();
+        boolean isChangingConfigurations = activity != null && activity.isChangingConfigurations();
+        if (this.getViewModelStore() != null && !isChangingConfigurations) {
+            this.getViewModelStore().clear();
+        }
 
-        Log.d("Frag", "I was killed");
+
+
+
+
+
+        //this.getViewModelStore().clear();
+
+        //Log.d("Frag", "I was killed");
+
+    }
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+
+        Log.d("Frag", "I was not killed");
+
 
     }
 
@@ -131,8 +145,10 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
 
         touchHelper.attachToRecyclerView(recyclerView);
 
-        recyclerView.setAdapter(tilsynAdapter);
         recyclerView.setHasFixedSize(true);
+
+        recyclerView.setAdapter(tilsynAdapter);
+
 
 
         tilsynsViewModel.getTilsynListe().observe(this, new Observer<List<Tilsyn>>() {
@@ -140,6 +156,8 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
             public void onChanged(List<Tilsyn> tilsynsListeNett) {
                 tilsynsListe.addAll(tilsynsListeNett);
                 full.addAll(tilsynsListeNett);
+                Collections.sort(tilsynsListe);
+                Collections.reverse(tilsynsListe);
 
                 tilsynAdapter.setTilsynListe(tilsynsListe);
 
@@ -194,17 +212,19 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
 
 
 
-
-
     @Override
     public void onTilsynClick(int pos) {
 
         Intent intent = new Intent(getContext(), TilsynActivity.class);
         if (tilsynsListe.get(pos).getTilsynid() != null) {
-            intent.putExtra("test", tilsynsListe.get(pos).getTilsynid());
+            intent.putExtra("test", tilsynsListe.get(pos));
 
-            bindingTilsyn.unbind();
-            startActivity(intent);
+
+            FragmentActivity activity = this.getActivity();
+            if(!activity.isFinishing())
+            activity.startActivityFromFragment(this, intent, 1);
+            //startActivity(intent);
+
         }
 
 

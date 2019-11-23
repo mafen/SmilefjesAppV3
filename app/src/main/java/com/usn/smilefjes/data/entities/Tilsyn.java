@@ -1,6 +1,7 @@
 package com.usn.smilefjes.data.entities;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.core.widget.ImageViewCompat;
@@ -14,8 +15,12 @@ import com.google.gson.annotations.SerializedName;
 import com.usn.smilefjes.R;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class Tilsyn extends BaseObservable {
+
+public class Tilsyn extends BaseObservable implements Comparable<Tilsyn> , Serializable {
 
     @SerializedName("orgnummer")
     private int orgnummer;
@@ -43,8 +48,14 @@ public class Tilsyn extends BaseObservable {
     @SerializedName("total_karakter")
     private int totalKarakter;
 
+    private SimpleDateFormat dateFormat;
+
+    private Date DatoFormatert;
+
+
     public Tilsyn(String navn) {
         this.navn = navn;
+
 
     }
 
@@ -64,6 +75,26 @@ public class Tilsyn extends BaseObservable {
             imageSrc =R.drawable.ic_dissatisfied_24dp;
             
         return imageSrc;
+    }
+
+    public Date getDatoFormatert() {
+
+        dateFormat = new SimpleDateFormat("ddMMy");
+        //dateFormat.setTimeZone(TimeZone.getTimeZone("ECT"));
+
+
+        try {
+            DatoFormatert = dateFormat.parse(getDato());
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return DatoFormatert;
+    }
+
+    public SimpleDateFormat getDateFormat() {
+        return dateFormat;
     }
 
     @Bindable
@@ -136,7 +167,14 @@ public class Tilsyn extends BaseObservable {
     }
 
 
+    @Override
+    public int compareTo(Tilsyn o) {
 
+        if(  this.getDatoFormatert() == null || o.getDatoFormatert() == null){
+            return 0;
+        }
+            return getDatoFormatert().compareTo(o.getDatoFormatert());
+    }
 }
 
 

@@ -8,8 +8,7 @@
     <fragment
         android:id="@+id/navigasjon_tilsyn"
         android:name="com.usn.smilefjes.ui.tilsyn.TilsynsFragment"
-        android:label="@string/tittel_tilsyn"
-        tools:layout="@layout/fragment_tilsyn" />
+        android:label="@string/tittel_tilsyn" />
     <activity
         android:id="@+id/tilsynActivity"
         android:name="com.usn.smilefjes.TilsynActivity"
