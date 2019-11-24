@@ -2,10 +2,15 @@
     <string name="app_name">Smilefjes</string>
     <string name="tittel_tilsyn">Smilefjes</string>
     <string name="standard_adresse">Adresse</string>
-    <string name="placeholder">N/A</string>
+    <string name="placeholder">	"N/A"</string>
     <string name="orgNr">"Orgnr : "</string>
     <string name="sok">Søk</string>
     <string name="innstillinger">Innstillinger</string>
     <string name="lukk_vindu">Lukk</string>
     <string name="dato">"Dato : "</string>
+    <string name="tema1">"Rutiner og ledelse"</string>
+    <string name="tema2">"Lokaler og utstyr"</string>
+    <string name="tema3">"Mat-håndtering og tilberedning"</string>
+    <string name="tema4">"Merking og sporbarhet"</string>
+
 </resources>

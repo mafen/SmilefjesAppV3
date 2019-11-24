@@ -30,11 +30,11 @@
 
             <TextView
                 android:id="@+id/text_view_navn"
-                android:layout_width="300dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:maxLines="2"
-                android:text="@{Kravpunkt.kravpunktNavn, default=@string/placeholder}"
+                android:text="@{Kravpunkt.navn, default=@string/placeholder}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,16 +42,32 @@
                 android:id="@+id/image_view_karakter"
                 android:layout_width="48dp"
                 android:layout_height="44dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="40dp"
+                android:contentDescription="TODO"
+                app:imageResource="@{Kravpunkt.karakter}"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/text_view_navn"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewTekst" />
 
-                android:contentDescription="TODO" />
+            <TextView
+                android:id="@+id/textViewTekst"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp"
+                android:text="@{Kravpunkt.kravTekst}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_view_karakter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_navn"
+                app:layout_constraintVertical_bias="1.0" />
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

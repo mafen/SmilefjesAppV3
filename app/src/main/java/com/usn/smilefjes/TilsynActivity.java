@@ -2,7 +2,6 @@ package com.usn.smilefjes;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,9 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.LifecycleService;
-import androidx.lifecycle.Lifecycling;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,17 +18,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.usn.smilefjes.data.entities.Kravpunkt;
 import com.usn.smilefjes.data.entities.Tilsyn;
 import com.usn.smilefjes.databinding.ActivityTilsynBinding;
-import com.usn.smilefjes.ui.tilsyn.KravAdapter;
+import com.usn.smilefjes.ui.kravpunkt.KravAdapter;
+import com.usn.smilefjes.ui.kravpunkt.KravViewModel;
 import com.usn.smilefjes.ui.tilsyn.TilsynsViewModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TilsynActivity extends AppCompatActivity {
 
     private ActivityTilsynBinding binding;
 
-    private TilsynsViewModel tilsynsViewModel;
+    private KravViewModel kravViewModel;
 
     final List<Kravpunkt> kravListe = new ArrayList<>();
 
@@ -55,7 +53,7 @@ public class TilsynActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
 
-        //tilsynsViewModel = new ViewModelProvider(this).get(TilsynsViewModel.class);
+        kravViewModel = new ViewModelProvider(this).get(KravViewModel.class);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
@@ -66,16 +64,6 @@ public class TilsynActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        Kravpunkt kravpunkt = new Kravpunkt("Ansvaret til driftsansvarlige");
-
-        kravListe.add(kravpunkt);
-        kravListe.add(new Kravpunkt("Opplæring og kompetanse"));
-        kravListe.add(new Kravpunkt("Internkontroll"));
-        kravListe.add(new Kravpunkt("Håndvask"));
-
-
-
-
         recyclerView.setAdapter(kravAdapter);
         recyclerView.setHasFixedSize(true);
 
@@ -83,20 +71,16 @@ public class TilsynActivity extends AppCompatActivity {
 
 
 
-/*
-        tilsynsViewModel.getTilsynListe().observe(this, new Observer<List<Tilsyn>>() {
+        kravViewModel.getKravListe(((Tilsyn) intent.getSerializableExtra("test")).getTilsynid()).observe(this, new Observer<List<Kravpunkt>>() {
             @Override
-            public void onChanged(List<Tilsyn> tilsynsListeNett) {
-                tilsynsListe.addAll(tilsynsListeNett);
-                full.addAll(tilsynsListeNett);
-                Collections.sort(tilsynsListe);
-                Collections.reverse(tilsynsListe);
+            public void onChanged(List<Kravpunkt> kravpunktListeNett) {
 
-                tilsynAdapter.setTilsynListe(tilsynsListe);
+                kravListe.addAll(kravpunktListeNett);
+                Collections.sort(kravListe, Kravpunkt::compareTo);
+                kravAdapter.setKravListe(kravListe);
 
             }
-
-        });*/
+        });
 
 
      /*   if(test2.length() != 0){

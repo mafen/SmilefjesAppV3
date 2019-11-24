@@ -1,17 +1,13 @@
-package com.usn.smilefjes.ui.tilsyn;
+package com.usn.smilefjes.ui.kravpunkt;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.usn.smilefjes.data.entities.Kravpunkt;
-import com.usn.smilefjes.data.entities.Tilsyn;
 import com.usn.smilefjes.databinding.KravItemBinding;
-import com.usn.smilefjes.databinding.TilsynItemBinding;
 
 import java.util.List;
 
@@ -26,6 +22,11 @@ public class KravAdapter extends RecyclerView.Adapter<KravAdapter.KravViewHolder
 
     }
 
+    public void setKravListe(List<Kravpunkt> kravListe) {
+        this.kravListe = kravListe;
+        notifyDataSetChanged();
+
+    }
 
     @NonNull
     @Override
@@ -39,6 +40,8 @@ public class KravAdapter extends RecyclerView.Adapter<KravAdapter.KravViewHolder
     public void onBindViewHolder(@NonNull KravViewHolder holder, int position) {
         Kravpunkt kravpunkt = kravListe.get(position);
         holder.bind(kravpunkt);
+
+
 
     }
 

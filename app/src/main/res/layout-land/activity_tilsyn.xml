@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="Tilsyn"
+            type="com.usn.smilefjes.data.entities.Tilsyn" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textViewNavn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:hyphenationFrequency="none"
+            android:minLines="2"
+            android:text="@{Tilsyn.navn, default=@string/placeholder}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:typeface="normal"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/recycler_view_krav"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_krav"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewDato"
+            app:layout_constraintTop_toBottomOf="@+id/textViewNavn" />
+
+        <TextView
+            android:id="@+id/textViewDato"
+            android:layout_width="160dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="40dp"
+            android:text="@{@string/dato + Tilsyn.datoFormatert.toLocaleString()}"
+            app:layout_constraintEnd_toStartOf="@+id/recycler_view_krav"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutSmilefjes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="16dp"
+            android:layoutMode="clipBounds"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/textViewDato"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="@dimen/karakter_lengde"
+                android:layout_height="@dimen/karakter_høyde"
+                app:imageResource="@{Tilsyn.tema1Krakater}"
+                tools:layout_conversion_absoluteHeight="40dp"
+                tools:layout_conversion_absoluteWidth="40dp"
+                tools:layout_editor_absoluteX="12dp"
+                tools:layout_editor_absoluteY="703dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="@dimen/karakter_lengde"
+                android:layout_height="@dimen/karakter_høyde"
+                app:imageResource="@{Tilsyn.tema2Krakater}"
+
+                tools:layout_conversion_absoluteHeight="40dp"
+                tools:layout_conversion_absoluteWidth="40dp"
+                tools:layout_editor_absoluteX="64dp"
+                tools:layout_editor_absoluteY="703dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="@dimen/karakter_lengde"
+                android:layout_height="@dimen/karakter_høyde"
+
+                app:imageResource="@{Tilsyn.tema3Krakater}"
+                tools:layout_conversion_absoluteHeight="40dp"
+                tools:layout_conversion_absoluteWidth="40dp"
+                tools:layout_editor_absoluteX="104dp"
+                tools:layout_editor_absoluteY="703dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="@dimen/karakter_lengde"
+                android:layout_height="@dimen/karakter_høyde"
+
+                app:imageResource="@{Tilsyn.tema4Krakater}"
+
+                tools:layout_conversion_absoluteHeight="40dp"
+                tools:layout_conversion_absoluteWidth="40dp"
+                tools:layout_editor_absoluteX="260dp"
+                tools:layout_editor_absoluteY="703dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="122dp"
+            android:layout_height="201dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/textViewDato"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintStart_toEndOf="@+id/linearLayoutSmilefjes"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textViewTema1"
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginBottom="20dp"
+                android:text="@{Tilsyn.tema1, default=@string/tema1}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewTema2"
+                android:layout_width="94dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginBottom="10dp"
+                android:text="@{Tilsyn.tema2, default=@string/tema2}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/textViewTema3"
+                android:layout_width="109dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginBottom="15dp"
+                android:hyphenationFrequency="normal"
+                android:text="@{Tilsyn.tema3, default=@string/tema3}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewTema4"
+                android:layout_width="86dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginBottom="10dp"
+                android:hyphenationFrequency="normal"
+                android:text="@{Tilsyn.tema4, default=@string/tema4}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

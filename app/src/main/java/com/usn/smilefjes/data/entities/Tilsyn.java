@@ -1,14 +1,12 @@
 package com.usn.smilefjes.data.entities;
 
 import android.graphics.drawable.Drawable;
-import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
-import androidx.core.widget.ImageViewCompat;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
-import androidx.databinding.DataBindingUtil;
 import androidx.databinding.library.baseAdapters.BR;
 
 import com.google.gson.annotations.SerializedName;
@@ -48,6 +46,31 @@ public class Tilsyn extends BaseObservable implements Comparable<Tilsyn> , Seria
     @SerializedName("total_karakter")
     private int totalKarakter;
 
+    @SerializedName("tema1_no")
+    private String tema1;
+
+    @SerializedName("tema2_no")
+    private String tema2;
+
+    @SerializedName("tema3_no")
+    private String tema3;
+
+    @SerializedName("tema4_no")
+    private String tema4;
+
+    @SerializedName("karakter1")
+    private int tema1Krakater;
+
+    @SerializedName("karakter2")
+    private int tema2Krakater;
+
+    @SerializedName("karakter3")
+    private int tema3Krakater;
+
+    @SerializedName("karakter4")
+    private int tema4Krakater;
+
+
     private SimpleDateFormat dateFormat;
 
     private Date DatoFormatert;
@@ -65,9 +88,25 @@ public class Tilsyn extends BaseObservable implements Comparable<Tilsyn> , Seria
 
     }
 
+    public int getTema1Krakater() {
+        return tema1Krakater;
+    }
+
+    public int getTema2Krakater() {
+        return tema2Krakater;
+    }
+
+    public int getTema3Krakater() {
+        return tema3Krakater;
+    }
+
+    public int getTema4Krakater() {
+        return tema4Krakater;
+    }
+
     @Bindable
     public int getImageSrc() {
-        if (totalKarakter <= 1 )
+        if (totalKarakter <= 1  )
             imageSrc = R.drawable.ic_satisfied_24dp;
         else if (totalKarakter == 2)
             imageSrc = R.drawable.ic_neutral_24dp;
@@ -76,6 +115,8 @@ public class Tilsyn extends BaseObservable implements Comparable<Tilsyn> , Seria
             
         return imageSrc;
     }
+
+
 
     public Date getDatoFormatert() {
 
@@ -167,6 +208,40 @@ public class Tilsyn extends BaseObservable implements Comparable<Tilsyn> , Seria
     }
 
 
+    public String getTema1() {
+        return tema1;
+    }
+
+    public void setTema1(String tema1) {
+        this.tema1 = tema1;
+    }
+
+    public String getTema2() {
+        return tema2;
+    }
+
+    public void setTema2(String tema2) {
+        this.tema2 = tema2;
+    }
+
+    public String getTema3() {
+        return tema3;
+    }
+
+    public void setTema3(String tema3) {
+        this.tema3 = tema3;
+    }
+
+    public String getTema4() {
+        return tema4;
+    }
+
+    public void setTema4(String tema4) {
+        this.tema4 = tema4;
+    }
+
+
+
     @Override
     public int compareTo(Tilsyn o) {
 
@@ -175,6 +250,8 @@ public class Tilsyn extends BaseObservable implements Comparable<Tilsyn> , Seria
         }
             return getDatoFormatert().compareTo(o.getDatoFormatert());
     }
+
+
 }
 
 
