@@ -1,8 +1,10 @@
 
 package com.usn.smilefjes.ui.tilsyn;
 
-
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,17 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.GenericLifecycleObserver;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStore;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,19 +32,20 @@ import com.usn.smilefjes.TilsynActivity;
 import com.usn.smilefjes.data.entities.Tilsyn;
 import com.usn.smilefjes.databinding.FragmentTilsynBinding;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
+@SuppressWarnings("unused")
 public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynLytter {
 
-   final List<Tilsyn> tilsynsListe = new ArrayList<>();
-   final List<Tilsyn> full = new ArrayList<>();
+   private final List<Tilsyn> tilsynsListe = new ArrayList<>();
+   private final List<Tilsyn> full = new ArrayList<>();
 
-
-    TilsynAdapter tilsynAdapter = new TilsynAdapter(tilsynsListe, this, full);
-    FragmentTilsynBinding bindingTilsyn;
+    private TilsynAdapter tilsynAdapter = new TilsynAdapter(tilsynsListe, this, full);
+    private FragmentTilsynBinding bindingTilsyn;
     RecyclerView recyclerView;
 
 
@@ -96,33 +96,13 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
 
         FragmentActivity activity = this.getActivity();
         boolean isChangingConfigurations = activity != null && activity.isChangingConfigurations();
-        if (this.getViewModelStore() != null && !isChangingConfigurations) {
+        this.getViewModelStore();
+        if (!isChangingConfigurations) {
             this.getViewModelStore().clear();
         }
 
-
-
-
-
-
-        //this.getViewModelStore().clear();
-
-        //Log.d("Frag", "I was killed");
-
     }
 
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-
-
-        Log.d("Frag", "I was not killed");
-
-
-    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -150,7 +130,12 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
         recyclerView.setAdapter(tilsynAdapter);
 
 
+        getListe();
 
+        return root;
+    }
+
+    private void getListe() {
         tilsynsViewModel.getTilsynListe().observe(this, new Observer<List<Tilsyn>>() {
             @Override
             public void onChanged(List<Tilsyn> tilsynsListeNett) {
@@ -164,8 +149,6 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
             }
 
         });
-
-        return root;
     }
 
     /**
@@ -173,7 +156,7 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
      * @param menuInflater
      */
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+    public void onCreateOptionsMenu(Menu menu, @NotNull MenuInflater menuInflater) {
 
         MenuItem searchItem = menu.findItem(R.id.app_bar_search);
 
@@ -194,44 +177,35 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
         });
 
     }
-/*
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.app_bar_search){
-
-            Log.d("taglaunch", "Search Icon Clicked from fragment");
-
-            return false;
-
-        }
-
-        return super.onOptionsItemSelected(item);
-
-    }*/
-
-
 
     @Override
     public void onTilsynClick(int pos) {
 
         Intent intent = new Intent(getContext(), TilsynActivity.class);
-        if (tilsynsListe.get(pos).getTilsynid() != null) {
-            intent.putExtra("test", tilsynsListe.get(pos));
-
-
+        if (tilsynsListe.get(pos).getTilsynid() != null && isOnline()) {
+            intent.putExtra("tilsyn", tilsynsListe.get(pos));
             FragmentActivity activity = this.getActivity();
-            if(!activity.isFinishing())
-            activity.startActivityFromFragment(this, intent, 1);
-            //startActivity(intent);
+
+            if (activity != null)
+                activity.startActivityFromFragment(this, intent, 1);
+        }
+        else {
+                Toast internet = Toast.makeText(getContext(), "Kan ikke koble til internett", Toast.LENGTH_SHORT);
+                internet.show();
+            }
+
 
         }
 
+    private boolean isOnline() {
+        ConnectivityManager connMgr = (ConnectivityManager) (getActivity())
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
 
+        assert connMgr != null;
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
+        return networkInfo != null && networkInfo.isConnected();
     }
-
-
 
 
 }

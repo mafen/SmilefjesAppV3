@@ -20,25 +20,19 @@ import com.usn.smilefjes.data.entities.Tilsyn;
 import com.usn.smilefjes.databinding.ActivityTilsynBinding;
 import com.usn.smilefjes.ui.kravpunkt.KravAdapter;
 import com.usn.smilefjes.ui.kravpunkt.KravViewModel;
-import com.usn.smilefjes.ui.tilsyn.TilsynsViewModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class TilsynActivity extends AppCompatActivity {
 
-    private ActivityTilsynBinding binding;
+    private final List<Kravpunkt> kravListe = new ArrayList<>();
 
-    private KravViewModel kravViewModel;
+    private RecyclerView recyclerView;
 
-    final List<Kravpunkt> kravListe = new ArrayList<>();
-
-    RecyclerView recyclerView;
-
-    KravAdapter kravAdapter = new KravAdapter(kravListe);
-
-    String test2;
+    private KravAdapter kravAdapter = new KravAdapter(kravListe);
 
 
     @Override
@@ -46,14 +40,16 @@ public class TilsynActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_tilsyn);
+        ActivityTilsynBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_tilsyn);
         binding.executePendingBindings();
 
 
         Intent intent = getIntent();
 
+        Serializable tilsyn = intent.getSerializableExtra("tilsyn");
 
-        kravViewModel = new ViewModelProvider(this).get(KravViewModel.class);
+
+        KravViewModel kravViewModel = new ViewModelProvider(this).get(KravViewModel.class);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
@@ -67,30 +63,21 @@ public class TilsynActivity extends AppCompatActivity {
         recyclerView.setAdapter(kravAdapter);
         recyclerView.setHasFixedSize(true);
 
-        binding.setTilsyn((Tilsyn)intent.getSerializableExtra("test"));
+        binding.setTilsyn((Tilsyn) tilsyn);
 
 
-
-        kravViewModel.getKravListe(((Tilsyn) intent.getSerializableExtra("test")).getTilsynid()).observe(this, new Observer<List<Kravpunkt>>() {
-            @Override
-            public void onChanged(List<Kravpunkt> kravpunktListeNett) {
-
-                kravListe.addAll(kravpunktListeNett);
-                Collections.sort(kravListe, Kravpunkt::compareTo);
-                kravAdapter.setKravListe(kravListe);
-
-            }
-        });
-
-
-     /*   if(test2.length() != 0){
-            tilsynsViewModel.getTilsyn(test2).observe(this, new Observer<Tilsyn>() {
+        if (tilsyn != null) {
+            kravViewModel.getKravListe(((Tilsyn) tilsyn).getTilsynid()).observe(this, new Observer<List<Kravpunkt>>() {
                 @Override
-                public void onChanged(Tilsyn tilsyn) {
-                }
+                public void onChanged(List<Kravpunkt> kravpunktListeNett) {
 
+                    kravListe.addAll(kravpunktListeNett);
+                    Collections.sort(kravListe, Kravpunkt::compareTo);
+                    kravAdapter.setKravListe(kravListe);
+
+                }
             });
-        }*/
+        }
 
     }
 
@@ -105,11 +92,7 @@ public class TilsynActivity extends AppCompatActivity {
 
         if(item.getItemId() == R.id.close){
             finish();
-            //binding.unbind();
-            //recyclerView.invalidate();
-            //tilsynsViewModel.getTilsyn(test2).removeObservers(this);
         }
-
 
         return  true;
     }

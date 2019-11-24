@@ -15,8 +15,6 @@ public interface SmilefjesApi {
     @GET("kravpunkter?")
     Call<AlleKrav> lesAlleKrav(@Query("tilsynid") String verdi);
 
-
-
     @GET("tilsyn?")
     Call<AlleTilsyn> lesEtTilsyn(@Query("tilsynid") String verdi);
 

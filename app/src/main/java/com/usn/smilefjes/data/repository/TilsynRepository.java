@@ -1,13 +1,8 @@
 
 package com.usn.smilefjes.data.repository;
 
-import android.app.Application;
-
-import androidx.lifecycle.LiveData;
-
 import com.usn.smilefjes.data.entities.AlleKrav;
 import com.usn.smilefjes.data.entities.AlleTilsyn;
-import com.usn.smilefjes.data.entities.Tilsyn;
 import com.usn.smilefjes.data.smilefjesApi.SmilefjesApi;
 
 import retrofit2.Call;
@@ -20,10 +15,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class TilsynRepository {
 
-    SmilefjesApi smilefjesApi;
+    private SmilefjesApi smilefjesApi;
 
     public TilsynRepository() {
-
 
 
         Retrofit.Builder builder = new Retrofit.Builder();
@@ -33,8 +27,6 @@ public class TilsynRepository {
                 .build();
 
         smilefjesApi = retrofit.create(SmilefjesApi.class);
-
-
     }
 
 
@@ -48,17 +40,14 @@ public class TilsynRepository {
     }
 
     /**
-     * @param callback
+     * @param callback det som kommer tilbake fra api kallet blir lagret her
      */
     public void lesFlereTilsyn(Callback<AlleTilsyn> callback) {
         Call<AlleTilsyn> call = smilefjesApi.lesAlle();
         call.enqueue(callback);
     }
 
-
-
     /**
-
      * @param callback
      */
     public void lesKrav(String id, Callback<AlleKrav> callback) {

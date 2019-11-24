@@ -9,21 +9,18 @@ import android.widget.Filterable;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.usn.smilefjes.TilsynActivity;
-import com.usn.smilefjes.data.entities.Kravpunkt;
 import com.usn.smilefjes.data.entities.Tilsyn;
 import com.usn.smilefjes.databinding.TilsynItemBinding;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
-public class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynViewHolder> implements Filterable {
+@SuppressWarnings("unused")
+class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynViewHolder> implements Filterable {
     TilsynItemBinding tilsynItemBinding;
     private List<Tilsyn> tilsynListe;
-    List<Tilsyn> fullTilsynsliste;
+    private List<Tilsyn> fullTilsynsliste;
 
     private OnTilsynLytter onTilsynLytter;
 
@@ -68,9 +65,7 @@ public class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynView
 
                 Collections.sort(tilsynListe);
                 Collections.reverse(tilsynListe);
-
                 notifyDataSetChanged();
-
 
             }
 
@@ -147,7 +142,6 @@ public class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynView
 
         @Override
         public void onClick(View v) {
-
             onTilsynLytter.onTilsynClick(getAdapterPosition());
         }
     }

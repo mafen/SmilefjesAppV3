@@ -1,17 +1,12 @@
 package com.usn.smilefjes.ui.tilsyn;
 
-import android.app.Application;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.BaseObservable;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 
-import com.google.gson.annotations.SerializedName;
 import com.usn.smilefjes.data.entities.AlleTilsyn;
 import com.usn.smilefjes.data.entities.Tilsyn;
 import com.usn.smilefjes.data.repository.TilsynRepository;
@@ -30,8 +25,7 @@ import retrofit2.Response;
 
 public class TilsynsViewModel extends ViewModel {
 
-    public TilsynRepository tilsynRepository;
-    Tilsyn tilsynN;
+    private TilsynRepository tilsynRepository;
     public MutableLiveData<Tilsyn> tilsyn = new MutableLiveData<>() ;
 
     private MutableLiveData<List<Tilsyn>> tilsynListe = new MutableLiveData<>();
@@ -52,7 +46,7 @@ public class TilsynsViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<AlleTilsyn> call, Throwable t) {
-                tilsynListe.setValue(new ArrayList<Tilsyn>(Collections.singleton(new Tilsyn("Ingen data funnet", 3))));
+                tilsynListe.setValue(new ArrayList<>(Collections.singleton(new Tilsyn("Ingen data funnet", 3))));
                 Log.e("API", "onFailure: failed to read tilsyn", t);
             }
         });
@@ -60,13 +54,6 @@ public class TilsynsViewModel extends ViewModel {
 
     }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-
-        Log.d("Hi", "Cleared");
-
-    }
 
     public  LiveData<Tilsyn> getTilsyn(String id){
 
@@ -76,11 +63,10 @@ public class TilsynsViewModel extends ViewModel {
 
                 if (response.isSuccessful()) {
 
-                    tilsyn.setValue(response.body().getTilsynList().get(0));
+                    if (response.body() != null) {
+                        tilsyn.setValue(response.body().getTilsynList().get(0));
+                    }
 
-
-                } else {
-                    Log.d("failed", "toget data");
                 }
             }
 

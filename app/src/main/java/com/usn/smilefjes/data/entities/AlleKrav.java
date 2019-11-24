@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class AlleKrav {
     @SerializedName("entries")
     private List<Kravpunkt> kravList;
@@ -13,8 +14,5 @@ public class AlleKrav {
         return kravList;
     }
 
-    public void setTilsynList(List<Kravpunkt> kravList) {
-        this.kravList = kravList;
-    }
 }
 

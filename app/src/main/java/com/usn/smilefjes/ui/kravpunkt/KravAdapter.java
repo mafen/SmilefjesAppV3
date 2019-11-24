@@ -11,9 +11,8 @@ import com.usn.smilefjes.databinding.KravItemBinding;
 
 import java.util.List;
 
-
+@SuppressWarnings("unused")
 public class KravAdapter extends RecyclerView.Adapter<KravAdapter.KravViewHolder> {
-    KravItemBinding itemBinding;
     private List<Kravpunkt> kravListe;
 
 
@@ -32,7 +31,7 @@ public class KravAdapter extends RecyclerView.Adapter<KravAdapter.KravViewHolder
     @Override
     public KravViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        itemBinding = KravItemBinding.inflate(layoutInflater, parent, false);
+        KravItemBinding itemBinding = KravItemBinding.inflate(layoutInflater, parent, false);
         return new KravViewHolder(itemBinding);
     }
 
@@ -41,15 +40,12 @@ public class KravAdapter extends RecyclerView.Adapter<KravAdapter.KravViewHolder
         Kravpunkt kravpunkt = kravListe.get(position);
         holder.bind(kravpunkt);
 
-
-
     }
 
     @Override
     public int getItemCount() {
         return kravListe.size();
     }
-
 
 
     class KravViewHolder extends RecyclerView.ViewHolder{
@@ -62,7 +58,6 @@ public class KravAdapter extends RecyclerView.Adapter<KravAdapter.KravViewHolder
             this.binding = binding;
 
         }
-
 
         public void bind(Kravpunkt kravpunkt) {
             binding.setKravpunkt(kravpunkt);

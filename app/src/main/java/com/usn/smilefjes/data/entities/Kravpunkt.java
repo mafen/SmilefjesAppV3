@@ -4,6 +4,7 @@ import androidx.databinding.BaseObservable;
 
 import com.google.gson.annotations.SerializedName;
 
+@SuppressWarnings("unused")
 public class Kravpunkt extends BaseObservable implements Comparable<Kravpunkt> {
 
     @SerializedName("tilsynid")
@@ -21,8 +22,6 @@ public class Kravpunkt extends BaseObservable implements Comparable<Kravpunkt> {
     @SerializedName("tekst_no")
     private String kravTekst;
 
-    private String navn;
-
     public Kravpunkt(String kravpunktNavn){
         this.kravpunktNavn = kravpunktNavn;
 
@@ -30,8 +29,7 @@ public class Kravpunkt extends BaseObservable implements Comparable<Kravpunkt> {
 
     public String getNavn(){
 
-        navn = ordningsverdi + " " + kravpunktNavn;
-        return navn;
+        return ordningsverdi + " " + kravpunktNavn;
     }
 
     public String getTilsynid() {
@@ -42,12 +40,12 @@ public class Kravpunkt extends BaseObservable implements Comparable<Kravpunkt> {
         return karakter;
     }
 
-    public String getOrdningsverdi() {
-        return ordningsverdi;
-    }
-
     public String getKravpunktNavn() {
         return kravpunktNavn;
+    }
+
+    public String getOrdningsverdi() {
+        return ordningsverdi;
     }
 
     public String getKravTekst() {
@@ -57,7 +55,7 @@ public class Kravpunkt extends BaseObservable implements Comparable<Kravpunkt> {
     @Override
     public int compareTo(Kravpunkt o) {
 
-        if(  this.karakter > o.karakter){
+        if( this.karakter > o.karakter){
             return 1;
         }
         else if( this.karakter < o.karakter)

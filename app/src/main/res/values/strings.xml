@@ -12,5 +12,6 @@
     <string name="tema2">"Lokaler og utstyr"</string>
     <string name="tema3">"Mat-håndtering og tilberedning"</string>
     <string name="tema4">"Merking og sporbarhet"</string>
+    <string name="bildeKarkater">Dette er bilde av et fjes i strekform</string>
 
 </resources>

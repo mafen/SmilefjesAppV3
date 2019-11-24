@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
             name="Tilsyn"
             type="com.usn.smilefjes.data.entities.Tilsyn" />
-        <variable
-            name="adapter"
-            type="com.usn.smilefjes.ui.bindingAdapters.ImageBindingAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/constraintLayout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:padding="2sp"
@@ -21,13 +18,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/linearLayout3"
+            android:id="@+id/linearLayoutTema"
             android:layout_width="318dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutSmilefjes">
 
             <TextView
                 android:id="@+id/textViewTema1"
@@ -35,7 +32,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
                 android:layout_marginBottom="12dp"
-
                 android:text="@{Tilsyn.tema1, default=@string/tema1}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textSize="12sp"
@@ -47,12 +43,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
                 android:layout_marginBottom="12dp"
-
                 android:text="@{Tilsyn.tema2, default=@string/tema2}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textSize="12sp"
                 android:textStyle="bold" />
-
 
             <TextView
                 android:id="@+id/textViewTema3"
@@ -93,14 +87,13 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewDato" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textViewNavn"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="160dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="160dp"
             android:layout_marginBottom="4dp"
-
             android:gravity="center"
             android:text="@{Tilsyn.navn, default=@string/placeholder}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -109,28 +102,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutTema" />
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:id="@+id/linearLayoutSmilefjes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="64dp"
             android:layoutDirection="inherit"
             android:layoutMode="clipBounds"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintBottom_toTopOf="@+id/textViewNavn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imageView7"
+                android:id="@+id/imageViewTema1"
                 android:layout_width="@dimen/karakter_lengde"
                 android:layout_height="@dimen/karakter_høyde"
-                app:imageResource="@{Tilsyn.tema1Krakater}"
-
-
+                android:contentDescription="@string/bildeKarkater"
+                app:image="@{Tilsyn.tema1Krakater}"
                 tools:layout_conversion_absoluteHeight="40dp"
                 tools:layout_conversion_absoluteWidth="40dp"
                 tools:layout_editor_absoluteX="12dp"
@@ -138,11 +130,11 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/imageView2Tema2"
                 android:layout_width="@dimen/karakter_lengde"
                 android:layout_height="@dimen/karakter_høyde"
-                app:imageResource="@{Tilsyn.tema2Krakater}"
-
+                android:contentDescription="@string/bildeKarkater"
+                app:image="@{Tilsyn.tema2Krakater}"
                 tools:layout_conversion_absoluteHeight="40dp"
                 tools:layout_conversion_absoluteWidth="40dp"
                 tools:layout_editor_absoluteX="64dp"
@@ -150,11 +142,12 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imageViewTema3"
                 android:layout_width="@dimen/karakter_lengde"
                 android:layout_height="@dimen/karakter_høyde"
 
-                app:imageResource="@{Tilsyn.tema3Krakater}"
+                android:contentDescription="@string/bildeKarkater"
+                app:image="@{Tilsyn.tema3Krakater}"
                 tools:layout_conversion_absoluteHeight="40dp"
                 tools:layout_conversion_absoluteWidth="40dp"
                 tools:layout_editor_absoluteX="104dp"
@@ -162,11 +155,11 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/imageViewTema4"
                 android:layout_width="@dimen/karakter_lengde"
                 android:layout_height="@dimen/karakter_høyde"
-
-                app:imageResource="@{Tilsyn.tema4Krakater}"
+                android:contentDescription="@string/bildeKarkater"
+                app:image="@{Tilsyn.tema4Krakater}"
                 tools:layout_conversion_absoluteHeight="40dp"
                 tools:layout_conversion_absoluteWidth="40dp"
                 tools:layout_editor_absoluteX="260dp"
@@ -185,7 +178,7 @@
             app:layout_constraintBottom_toTopOf="@+id/recycler_view_krav"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewNavn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

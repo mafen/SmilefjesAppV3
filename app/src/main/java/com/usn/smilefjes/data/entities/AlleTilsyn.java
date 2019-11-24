@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class AlleTilsyn {
     @SerializedName("entries")
     private List<Tilsyn> tilsynList;
@@ -13,8 +14,5 @@ public class AlleTilsyn {
         return tilsynList;
     }
 
-    public void setTilsynList(List<Tilsyn> tilsynList) {
-        this.tilsynList = tilsynList;
-    }
 }
 

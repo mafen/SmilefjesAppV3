@@ -10,7 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,20 +20,16 @@
             android:id="@+id/textViewNavn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
-            android:hyphenationFrequency="none"
             android:minLines="2"
             android:text="@{Tilsyn.navn, default=@string/placeholder}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:typeface="normal"
-            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/recycler_view_krav"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/linearLayout3"
+            app:layout_constraintStart_toEndOf="@+id/linearLayoutTema"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -56,7 +52,7 @@
             android:text="@{@string/dato + Tilsyn.datoFormatert.toLocaleString()}"
             app:layout_constraintEnd_toStartOf="@+id/recycler_view_krav"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutTema" />
 
         <LinearLayout
             android:id="@+id/linearLayoutSmilefjes"
@@ -67,15 +63,16 @@
             android:layoutMode="clipBounds"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/textViewDato"
-            app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayoutTema"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imageView7"
+                android:id="@+id/imageViewTema1"
                 android:layout_width="@dimen/karakter_lengde"
                 android:layout_height="@dimen/karakter_høyde"
-                app:imageResource="@{Tilsyn.tema1Krakater}"
+                android:contentDescription="@string/bildeKarkater"
+                app:image="@{Tilsyn.tema1Krakater}"
                 tools:layout_conversion_absoluteHeight="40dp"
                 tools:layout_conversion_absoluteWidth="40dp"
                 tools:layout_editor_absoluteX="12dp"
@@ -83,11 +80,11 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/imageView2Tema2"
                 android:layout_width="@dimen/karakter_lengde"
                 android:layout_height="@dimen/karakter_høyde"
-                app:imageResource="@{Tilsyn.tema2Krakater}"
-
+                android:contentDescription="@string/bildeKarkater"
+                app:image="@{Tilsyn.tema2Krakater}"
                 tools:layout_conversion_absoluteHeight="40dp"
                 tools:layout_conversion_absoluteWidth="40dp"
                 tools:layout_editor_absoluteX="64dp"
@@ -95,10 +92,11 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imageViewTema3"
                 android:layout_width="@dimen/karakter_lengde"
                 android:layout_height="@dimen/karakter_høyde"
 
+                android:contentDescription="@string/bildeKarkater"
                 app:imageResource="@{Tilsyn.tema3Krakater}"
                 tools:layout_conversion_absoluteHeight="40dp"
                 tools:layout_conversion_absoluteWidth="40dp"
@@ -107,12 +105,11 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/imageViewTema4"
                 android:layout_width="@dimen/karakter_lengde"
                 android:layout_height="@dimen/karakter_høyde"
-
-                app:imageResource="@{Tilsyn.tema4Krakater}"
-
+                android:contentDescription="@string/bildeKarkater"
+                app:image="@{Tilsyn.tema4Krakater}"
                 tools:layout_conversion_absoluteHeight="40dp"
                 tools:layout_conversion_absoluteWidth="40dp"
                 tools:layout_editor_absoluteX="260dp"
@@ -122,14 +119,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout3"
+            android:id="@+id/linearLayoutTema"
             android:layout_width="122dp"
             android:layout_height="201dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/textViewDato"
-            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintEnd_toStartOf="@+id/textViewNavn"
             app:layout_constraintStart_toEndOf="@+id/linearLayoutSmilefjes"
             app:layout_constraintTop_toTopOf="parent">
 
