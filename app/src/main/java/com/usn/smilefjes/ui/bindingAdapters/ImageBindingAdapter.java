@@ -9,6 +9,9 @@ import com.usn.smilefjes.R;
 @SuppressWarnings("WeakerAccess")
 public class ImageBindingAdapter {
 
+    // Dette er et adapter som setter de rette bildinge til
+    // de rette smilefjesne basert på karakteren som kommer inn
+
     @BindingAdapter("image")
     public static void setImageResource(ImageView i, int value){
 
@@ -20,10 +23,7 @@ public class ImageBindingAdapter {
         }
         else if (value == 3)
             i.setImageResource(R.drawable.ic_dissatisfied_24dp);
-        else if(value == 4)
-            i.setImageResource(R.drawable.ic_settings);
-        else
-            i.setImageResource(R.drawable.ic_close);
+
 
     }
 

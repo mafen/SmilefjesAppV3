@@ -43,9 +43,10 @@ public class TilsynActivity extends AppCompatActivity {
         ActivityTilsynBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_tilsyn);
         binding.executePendingBindings();
 
-
         Intent intent = getIntent();
 
+        // Her kommer tilsyns objekter for å bli plasert ut på skjermen med bruk av ActivityTilsynBinding
+        // Fant ut at dette var en bedre løsning enn å laste inn objektene fra nett hver gang.
         Serializable tilsyn = intent.getSerializableExtra("tilsyn");
 
 

@@ -2,15 +2,13 @@ package com.usn.smilefjes.ui.tilsyn;
 
 import android.util.Log;
 
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 
 import com.usn.smilefjes.data.entities.AlleTilsyn;
 import com.usn.smilefjes.data.entities.Tilsyn;
 import com.usn.smilefjes.data.repository.TilsynRepository;
-
 
 import org.jetbrains.annotations.NotNull;
 
@@ -23,12 +21,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
+/*
+Denne klassen står for mellom-lagring av Data før det vises til bruker
+Dem bruker en Repository som igjen bruker retrofit til å hente data
+ */
+
 public class TilsynsViewModel extends ViewModel {
 
     private TilsynRepository tilsynRepository;
     public MutableLiveData<Tilsyn> tilsyn = new MutableLiveData<>() ;
 
     private MutableLiveData<List<Tilsyn>> tilsynListe = new MutableLiveData<>();
+    private MutableLiveData<List<Tilsyn>> tilsynListePost = new MutableLiveData<>();
+
 
 
     public TilsynsViewModel() {
@@ -55,7 +60,8 @@ public class TilsynsViewModel extends ViewModel {
     }
 
 
-    public  LiveData<Tilsyn> getTilsyn(String id){
+
+    public  LiveData<List<Tilsyn>> getTilsyn1(String id){
 
         tilsynRepository.lesEtTilsyn(id, new Callback<AlleTilsyn>() {
             @Override
@@ -63,22 +69,65 @@ public class TilsynsViewModel extends ViewModel {
 
                 if (response.isSuccessful()) {
 
-                    if (response.body() != null) {
-                        tilsyn.setValue(response.body().getTilsynList().get(0));
-                    }
+                    List<Tilsyn> body = response.body().getTilsynList();
+
+                    tilsynListe.setValue(body);
+
 
                 }
             }
+
+
 
             @Override
             public void onFailure(Call<AlleTilsyn> call, Throwable t) {
                 Log.e("API", "onFailure: failed to read tilsyn", t);
             }
         });
-        return tilsyn;
+        return tilsynListe;
     }
+
+
+    public  LiveData<List<Tilsyn>> getTilsynMedAar(String id){
+
+        tilsynRepository.lesTilsynMedAar(id, new Callback<AlleTilsyn>() {
+            @Override
+            public void onResponse(Call<AlleTilsyn> call, Response<AlleTilsyn> response) {
+
+                if (response.isSuccessful()) {
+
+                    Log.d("Adress", response.toString());
+                    List<Tilsyn> body = response.body().getTilsynList();
+                    tilsynListe.setValue(body);
+
+
+                }
+            }
+
+
+
+            @Override
+            public void onFailure(Call<AlleTilsyn> call, Throwable t) {
+                Log.e("API", "onFailure: failed to read tilsyn", t);
+            }
+        });
+        return tilsynListe;
+    }
+
 
     public LiveData<List<Tilsyn>> getTilsynListe() {
         return tilsynListe;
     }
+
+    public void setTilsynListe(MutableLiveData<List<Tilsyn>> tilsynListe) {
+        this.tilsynListe = tilsynListe;
+    }
+
+
+
+    public void setTilsyn(MutableLiveData<Tilsyn> tilsyn) {
+        this.tilsyn = tilsyn;
+    }
+
+
 }

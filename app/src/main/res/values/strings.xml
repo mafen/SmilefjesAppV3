@@ -13,5 +13,18 @@
     <string name="tema3">"Mat-håndtering og tilberedning"</string>
     <string name="tema4">"Merking og sporbarhet"</string>
     <string name="bildeKarkater">Dette er bilde av et fjes i strekform</string>
+    <string name="title_activity_settings"></string>
+    <string name="aar_lagret">2017</string>
+    <string name="aar_lagretKey"></string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">År</string>
+    <string name="sync_header">Favorit Sted</string>
+
+    <!-- År Preferences -->
+    <string name="signature_title">År Valg</string>
+
+    <!-- Sted Preferences -->
+
 
 </resources>

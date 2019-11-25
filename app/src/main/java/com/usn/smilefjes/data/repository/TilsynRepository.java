@@ -1,6 +1,8 @@
 
 package com.usn.smilefjes.data.repository;
 
+import android.util.Log;
+
 import com.usn.smilefjes.data.entities.AlleKrav;
 import com.usn.smilefjes.data.entities.AlleTilsyn;
 import com.usn.smilefjes.data.smilefjesApi.SmilefjesApi;
@@ -30,10 +32,7 @@ public class TilsynRepository {
     }
 
 
-    /**
-     * @param id
-     * @param callback
-     */
+
     public void lesEtTilsyn(String id, Callback<AlleTilsyn> callback) {
         Call<AlleTilsyn> call = smilefjesApi.lesEtTilsyn(id);
         call.enqueue(callback);
@@ -46,6 +45,13 @@ public class TilsynRepository {
         Call<AlleTilsyn> call = smilefjesApi.lesAlle();
         call.enqueue(callback);
     }
+
+
+    public void lesTilsynMedAar(String id, Callback<AlleTilsyn> callback) {
+        Call<AlleTilsyn> call = smilefjesApi.lesAllMed(id);
+        call.enqueue(callback);
+    }
+
 
     /**
      * @param callback

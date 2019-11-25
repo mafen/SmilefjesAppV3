@@ -13,6 +13,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//Dette er på en måte hovedobjektet,
+// siden det tar inn infoen som skal vises til bruker
+
+// SerializedName er brukt for å koble variablene til de som man finner i APiet
+
+// BaseObservable er det som gjør det mulig for Databinder klassene å observee data
+
+// Serializable er for å kunne sende objektet rundt med intenter
+
 @SuppressWarnings("unused")
 public class Tilsyn extends BaseObservable implements Comparable<Tilsyn> , Serializable {
 

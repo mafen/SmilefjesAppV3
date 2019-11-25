@@ -23,6 +23,10 @@ import retrofit2.Response;
 
 public class KravViewModel extends ViewModel {
 
+    // Denne klassen gjør det sammen som den andre view moddelen
+    // Men den gjør det for krav punkt objektet
+    // Det henter ned data fra apiet til matilsynet og lagrer i en liste.
+
     private final TilsynRepository kravRepository;
     private MutableLiveData<List<Kravpunkt>> kravListe = new MutableLiveData<>();
 

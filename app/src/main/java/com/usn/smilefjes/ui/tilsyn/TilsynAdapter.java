@@ -16,6 +16,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/*
+Denne klassen er adaptert til RecyclerView
+som viser de ulike tilsynen som matilsynet har gjort
+ */
+
+
 @SuppressWarnings("unused")
 class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynViewHolder> implements Filterable {
     TilsynItemBinding tilsynItemBinding;
@@ -29,6 +35,8 @@ class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynViewHolder>
         protected FilterResults performFiltering(CharSequence constraint) {
 
             final List<Tilsyn> filtertListe = new ArrayList<>();
+
+
 
             if (constraint == null || constraint.length() == 0) {
                 filtertListe.addAll(fullTilsynsliste);
@@ -48,6 +56,10 @@ class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynViewHolder>
 
             return reslutater;
         }
+
+        // Her brukte jeg denne løsningen på linken under.
+        // Det så ut som et problem, men var egentlig ikke det.
+        // Den sjekker om at objektet er at rett type før det blir sendt ut etter søk
 
         //https://stackoverflow.com/questions/14642985/type-safety-unchecked-cast-from-object-to-listmyobject
 
@@ -83,7 +95,6 @@ class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynViewHolder>
     }
 
 
-
     public void setTilsynListe(List<Tilsyn> tilsynListe) {
 
         this.tilsynListe = tilsynListe;
@@ -110,11 +121,13 @@ class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynViewHolder>
         return tilsynListe.size();
     }
 
+    // Søkefilter
     @Override
     public Filter getFilter() {
         return tilsynsFilter;
     }
 
+    // Lytter for klikk på listen
     public interface OnTilsynLytter {
         void onTilsynClick(int pos);
     }
@@ -133,7 +146,7 @@ class TilsynAdapter extends RecyclerView.Adapter<TilsynAdapter.TilsynViewHolder>
 
         }
 
-
+        // Denne bruker Androids Databinding Library
         public void bind(Tilsyn tilsyn) {
             binding.setTilsyn(tilsyn);
             binding.executePendingBindings();

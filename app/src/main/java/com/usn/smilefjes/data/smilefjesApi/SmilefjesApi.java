@@ -16,7 +16,12 @@ public interface SmilefjesApi {
     Call<AlleKrav> lesAlleKrav(@Query("tilsynid") String verdi);
 
     @GET("tilsyn?")
-    Call<AlleTilsyn> lesEtTilsyn(@Query("tilsynid") String verdi);
+    Call<AlleTilsyn> lesEtTilsyn(@Query("postnr")   String verdi);
+
+    @GET("tilsyn?")
+    Call<AlleTilsyn> lesAllMed(@Query("sakref")   String verdi);
+
+
 
 
 
