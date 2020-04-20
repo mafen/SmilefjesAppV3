@@ -32,6 +32,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -176,13 +177,10 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
     // Men ble ikke ferdig med det
     // Denne skulle lese fra SharedPreferences
     private void letAar() {
-        SharedPreferences myPreferences = this.getActivity().getSharedPreferences(MainActivity.PREFS_FILE_NAME, Context.MODE_PRIVATE);
-        String nokkel = getResources().getString(R.string.aar_lagret);
-        String verdi = myPreferences.getString(nokkel, null);
 
+        SharedPreferences myPreferences  = PreferenceManager.getDefaultSharedPreferences(getContext());
+        lesTilsynMedAar(myPreferences.getString("aar", "2020"));
 
-        if (verdi != null)
-            lesTilsynMedAar(nokkel);
 
     }
 
@@ -256,6 +254,7 @@ public class TilsynsFragment extends Fragment implements TilsynAdapter.OnTilsynL
         }
 
         getListe();
+        letAar();
 
         return root;
     }

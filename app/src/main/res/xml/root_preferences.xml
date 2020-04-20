@@ -20,8 +20,8 @@
 
         <EditTextPreference
             app:defaultValue="@string/aar_lagret"
-            app:key="@string/aar_lagret"
-            app:title="@string/signature_title"
+            app:key="@string/aar_valg"
+            app:title="@string/aar_valg"
             app:useSimpleSummaryProvider="true" />
 
 

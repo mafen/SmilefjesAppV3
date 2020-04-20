@@ -1,10 +1,10 @@
 package com.usn.smilefjes;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.EditTextPreference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
@@ -34,13 +34,24 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
+
+        PreferenceManager preferenceManager ;
+        EditTextPreference editText;
+
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
 
-            SharedPreferences sharedPreferences =
-                    PreferenceManager.getDefaultSharedPreferences(getContext());
-            sharedPreferences.toString();
+            preferenceManager = getPreferenceManager();
+            editText = findPreference(getString(R.string.aar_valg));
+
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+
+            preferenceManager.getSharedPreferences().edit().putString("aar", editText.getText()).apply();
         }
     }
 
