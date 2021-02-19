@@ -1,4 +1,4 @@
 En app for sjekking av smilefjes hos serveringssteder
 
 
-Laget for eksamen i apputvkiling ved USN i November 2019
+Laget for eksamen i apputvikling ved USN i November 2019
